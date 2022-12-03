@@ -3,18 +3,20 @@ const express = require("express")
 const { 
     home,
     createTodo,
-    createTask,
     getTodo,
     getTodos,
-    deleteTodo
+    editTodo,
+    deleteTodo,
+    searchTodo
 } = require("../Controller/todoController");
 const router = express.Router();
 
 router.get("/",home)
-router.get("/createTodo",createTodo)
-router.get("/createTask",createTask)
+router.post("/createTodo",createTodo)
 router.get("/getTodo",getTodo)
 router.get("/getTodos",getTodos)
-router.get("/deleteTodo",deleteTodo)
+router.put("/editTodo",editTodo)
+router.delete("/deleteTodo",deleteTodo)
+router.get("/searchTodo",searchTodo)
 
 module.exports = router
