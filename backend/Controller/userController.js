@@ -14,9 +14,10 @@ exports.register = async (req,res) => {
         //collect all information
         const {firstname, lastname, email, password } = req.body
         //validate the data, if exists
-        if (!(email && password && lastname && firstname)) {
-            res.status(401).send("All fileds are required")
+        if (!(firstname && lastname && email && password)) {
+        res.status(401).send("All fields are required");
         }
+
         //check if email is in correct format
 
         //check if user exists or not
