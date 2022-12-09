@@ -1,6 +1,6 @@
 // Url Path
 const express = require("express")
-const auth = require("../middleware/auth")
+// const auth = require("../middleware/auth")
 const { 
     register,
     login,
@@ -13,6 +13,6 @@ router.post("/register", register)
 
 router.post("/login", login)
 
-router.get("/dashboard",auth, dashboard)
+router.get("/dashboard",dashboard)
 
 module.exports = router

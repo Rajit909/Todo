@@ -18,6 +18,6 @@ app.use(cookieParser())
 connectToDB();
 
 app.use("/",todoRoutes)
-app.use("/userRoutes",userRoutes)
+app.use("/",userRoutes)
 
 module.exports = app;

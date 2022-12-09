@@ -4,57 +4,55 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 
 
-exports.register = async (req,res) => {
-    try {
-        // Collect all information
-        const {name, username, email, password } = req.body
-    
-    // validate the data, if exists
-    if (!(email && password && name && username)) {
-        res.status(401).send("All fields are required")
-    }
-
     //check if email is in correct format
     // if (!email.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/) || email == "") {
     //     res.status(401).send("Please enter a email")
     // }
 
-    // check if user exists or not
-    const existingUser = await User.findOne({email})
+exports.register = async (req,res) => {
+    try {
+        //collect all information
+        const {firstname, lastname, email, password } = req.body
+        //validate the data, if exists
+        if (!(email && password && lastname && firstname)) {
+            res.status(401).send("All fileds are required")
+        }
+        //check if email is in correct format
 
-    if (existingUser) {
-        res.status(401).send("User already exists in our DataBase")
-    }
+        //check if user exists or not
+        const existingUser = await User.findOne({ email})
+        if (existingUser) {
+            res.status(401).send("User already found in database")
+        }
 
-    // encrypt the password
+        //encrypt the password
+        const myEncyPassword = await bcrypt.hash(password, 10)
 
-    const myEncryptPassword = await bcrypt.hash(password, 10)
+       
+        //create a new entry in database
+        const user = await User.create({
+            firstname,
+            lastname,
+            email,
+            password: myEncyPassword,
+        })
+        
+        //create a token and send it to user
+        const token = jwt.sign({
+            id: user._id, email
+        }, 'shhhhh', {expiresIn: '2h'})
+        
 
-    // Create a new entry in DataBase
+        user.token = token
+        //don't want to send the password
+        user.password = undefined
 
-    const user = await User.create({
-        name,
-        username,
-        email,
-        password:myEncryptPassword,
-    })
+        res.status(201).json(user)
 
 
-    
-    //create a token and send it to user
-    const token = jwt.sign({
-        id: user._id, email
-    },'shhhh',{expiresIn: '2h'})
-    
-    user.token = token
-    // don't want to send the password
-    user.password = undefined
-
-    res.status(201).json(user)
-    
     } catch (error) {
-        console.log(error)
-        console.log("Error is response route")
+        console.log(error);
+        console.log("Error is response route");
     }
 }
 

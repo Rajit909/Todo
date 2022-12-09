@@ -1,32 +1,25 @@
 const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
-    name:{
+    firstname:{
         type:String,
-        required: [true, "Please Enter your name"],
-        maxLength: [30, "Maximum length of title must be 30 charecters"]
+        default:null
     },
-    username:{
+    lastname:{
         type:String,
-        required: [true, "Please Enter username"],
-        maxLength: [30, "Maximum length of title must be 30 charecters"]
+        default:null
     },
     email:{
         type:String,
-        required: [true, "Please Enter email"],
+        unique:true
     },
     password:{
-        type:String,
-        required: [true, "Please Enter a password"],
-        maxLength: [8, "Password length must be 8 "]
+        type:String
     },
-    // confirmpassword:{
-    //     type:String,
-    //     required: [true, "Please reEnter password"],
-    // },
-    token: {
-        type: String,
+    token:{
+        type:String
     }
+
 })
 
-module.exports = mongoose.model('User' , userSchema)
+module.exports = mongoose.model('user' , userSchema)
