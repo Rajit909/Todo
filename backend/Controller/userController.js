@@ -11,25 +11,26 @@ const bcrypt = require("bcryptjs")
 
 exports.register = async (req,res) => {
     try {
+
         //collect all information
+
         const {firstname, lastname, email, password } = req.body
         //validate the data, if exists
         if (!(firstname && lastname && email && password)) {
-        res.status(401).send("All fields are required");
+            throw new Error("All fields are Required.");
         }
 
         //check if email is in correct format
-
         //check if user exists or not
-        const existingUser = await User.findOne({ email})
+        const existingUser = await User.findOne({ email })
         if (existingUser) {
-            res.status(401).send("User already found in database")
+            throw new Error("User already exists");
         }
 
         //encrypt the password
         const myEncyPassword = await bcrypt.hash(password, 10)
 
-       
+
         //create a new entry in database
         const user = await User.create({
             firstname,
@@ -38,22 +39,32 @@ exports.register = async (req,res) => {
             password: myEncyPassword,
         })
         
+        await user.save()
+
         //create a token and send it to user
+
         const token = jwt.sign({
             id: user._id, email
-        }, 'shhhhh', {expiresIn: '2h'})
+        },
+        process.env.SECRET_CODE
+        ,{expiresIn: process.env.EXPIRY_TIME })
         
 
         user.token = token
         //don't want to send the password
         user.password = undefined
 
-        res.status(201).json(user)
+        res.status(201).json({
+            success: true,
+            user,
+        })
 
 
     } catch (error) {
-        console.log(error);
-        console.log("Error is response route");
+        res.status(400).json({
+            success:false,
+            message:error.message,
+        })
     }
 }
 
