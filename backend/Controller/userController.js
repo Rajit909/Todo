@@ -1,15 +1,19 @@
-const User = require("../model/users/User")
+import User from "../model/users/User.js"
 
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcryptjs")
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { v4 as uuidv4 } from "uuid";
 
+const home = (req, res)=>{
+    res.send("<h1>This is home page</h1>")
+}
 
     //check if email is in correct format
     // if (!email.match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/) || email == "") {
     //     res.status(401).send("Please enter a email")
     // }
 
-exports.register = async (req,res) => {
+const register = async (req,res) => {
     try {
 
         //collect all information
@@ -30,6 +34,11 @@ exports.register = async (req,res) => {
         //encrypt the password
         const myEncyPassword = await bcrypt.hash(password, 10)
 
+        let tasks = [];
+        tasks[0] = "How";
+        tasks[1] = "Are";
+        tasks[2] = "You ?";
+
 
         //create a new entry in database
         const user = await User.create({
@@ -37,6 +46,7 @@ exports.register = async (req,res) => {
             lastname,
             email,
             password: myEncyPassword,
+            todos: [{ uuid: uuidv4(), title: `Hello ${firstname}`, tasks}]
         })
         
         await user.save()
@@ -50,9 +60,11 @@ exports.register = async (req,res) => {
         ,{expiresIn: process.env.EXPIRY_TIME })
         
 
-        user.token = token
         //don't want to send the password
         user.password = undefined
+        user.token = token
+        
+
 
         res.status(201).json({
             success: true,
@@ -69,7 +81,7 @@ exports.register = async (req,res) => {
 }
 
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     try {
         // Collect info from frontend
         const {email, password} = req.body
@@ -88,7 +100,7 @@ exports.login = async (req, res) => {
 
         // match the password
         if (user && (await bcrypt.compare(password, user.password))) {
-            const token = jwt.sign({id: user._id, email}, 'shhhh', {expiresIn: '2h'})
+            const token = jwt.sign({id: user._id, email}, process.env.SECRET_CODE ,{expiresIn: process.env.EXPIRY_TIME})
         
             user.password = undefined
             user.token = token
@@ -103,16 +115,39 @@ exports.login = async (req, res) => {
                 token,
                 user
             })        
+        }else{
+            throw new Error("Invalid credential")
         }
 
-        // create token and send
-        res.status(400).send("Email or password is incorrect")
 
     } catch (error) {
-        console.log(error)
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
     }
 }
 
-exports.dashboard = async (req, res) =>{
-    res.send("Welcome to dashboard")
-}
+const dashboard = async (req, res) =>{
+    const {token} = req.cookies;
+
+    if (!token) {
+        res.status(500).json({
+            message: "Token not found"
+        })
+    }
+    try {
+        let decode = jwt.verify(token, process.env.SECRET_CODE)
+
+        res.status(200).json({
+            message: "Welcome to TODO APP"
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Invalid token"
+        })
+    }
+};
+
+
+export { home, register, login, dashboard} ;

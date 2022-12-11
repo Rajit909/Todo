@@ -1,18 +1,21 @@
 // Url Path
-const express = require("express")
-// const auth = require("../middleware/auth")
-const { 
+import express from "express"
+import auth from "../middleware/auth.js"
+import { 
+    home,
     register,
     login,
     dashboard
-} = require("../Controller/userController");
+} from "../Controller/userController.js"
 
 const router = express.Router();
+
+router.get("/",home)
 
 router.post("/register", register)
 
 router.post("/login", login)
 
-router.get("/dashboard",dashboard)
+router.get("/dashboard",auth,dashboard)
 
-module.exports = router
+export default router

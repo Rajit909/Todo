@@ -1,15 +1,18 @@
-require("dotenv").config()
-const express = require("express")
-const connectToDB = require("./config/database")
-const todoRoutes = require("./routes/todoRoute")
-const userRoutes = require("./routes/userRoute")
-var cookieParser = require('cookie-parser')
+import dotenv from "dotenv"
+dotenv.config()
+import express from "express"
+import connectToDB from "./config/database.js"
+// const todoRoutes from "./routes/todoRoute")
+import router from "./routes/userRoute.js"
+import cookieParser from 'cookie-parser'
+import cors from "cors"
 const app = express()
 
 //custom middleware
 
 
 //Middleware
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
@@ -17,7 +20,7 @@ app.use(cookieParser())
 
 connectToDB();
 
-app.use("/",todoRoutes)
-app.use("/",userRoutes)
+// app.use("/",todoRoutes)
+app.use("/",router)
 
-module.exports = app;
+export default app;

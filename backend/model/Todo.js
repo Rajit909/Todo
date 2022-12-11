@@ -1,5 +1,4 @@
-const mongoose = require("mongoose")
-
+import mongoose from "mongoose"
 const todoSchema = new mongoose.Schema({
     title:{
         type:String,
@@ -15,7 +14,10 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-
+    uuid:{
+        type:String
+    },
+    timestamps: true
 })
 
 module.exports = mongoose.model('Todo' , todoSchema)
