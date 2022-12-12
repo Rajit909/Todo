@@ -1,5 +1,5 @@
 // const TodoModel = require("../model/Todo");
-import Todo from "../model/Todo"
+import Todo from "../model/Todo.js"
 
 
 
