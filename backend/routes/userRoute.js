@@ -8,6 +8,14 @@ import {
     dashboard
 } from "../Controller/userController.js"
 
+import {
+    createTodo,
+    getTodo,
+    getTodos,
+    editTodo,
+    deleteTodo,
+    searchTodo
+} from "../Controller/todoController.js"
 
 const router = express.Router();
 
@@ -16,5 +24,14 @@ router.get("/",home)
 router.post("/register", register)
 router.post("/login", login)
 router.get("/dashboard",auth,dashboard)
+
+// todo api routes
+router.get("/",home)
+router.post("/createTodo",createTodo)
+router.get("/getTodo",getTodo)
+router.get("/getTodos",getTodos)
+router.put("/editTodo",editTodo)
+router.delete("/deleteTodo",deleteTodo)
+router.get("/searchTodo",searchTodo)
 
 export default router

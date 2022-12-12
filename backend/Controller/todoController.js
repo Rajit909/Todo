@@ -276,4 +276,4 @@ const searchTodo = async (req, res) =>{
     }
 }
 
-export default { createTodo, getTodos, getTodo, editTodo, deleteTodo, searchTodo}
+export  { createTodo, getTodos, getTodo, editTodo, deleteTodo, searchTodo}

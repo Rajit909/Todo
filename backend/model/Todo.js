@@ -17,7 +17,7 @@ const todoSchema = new mongoose.Schema({
     uuid:{
         type:String
     },
-    timestamps: true
+    // timestamps: true
 })
 
 const TodoModel = mongoose.model('Todo' , todoSchema) 
