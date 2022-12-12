@@ -4,7 +4,7 @@ import Todo from "../model/Todo"
 
 
 //CreateTodo Controller
-exports.createTodo = async (req, res) =>{
+const createTodo = async (req, res) =>{
     try {
         const {title, tasks, isImportant } = req.body
 
@@ -66,7 +66,7 @@ exports.createTodo = async (req, res) =>{
 
 
 // Get todos Controller
-exports.getTodos = async (req, res) => {
+const getTodos = async (req, res) => {
     try {
         const todos = await Todo.find({})
         res.status(200).json({
@@ -86,7 +86,7 @@ exports.getTodos = async (req, res) => {
     }
 }
 
-exports.getTodo = async (req, res) => {
+const getTodo = async (req, res) => {
     try {
         const { todoId } = req.params
         
@@ -124,7 +124,7 @@ exports.getTodo = async (req, res) => {
 
 
 
-exports.editTodo = async (req, res) =>{
+const editTodo = async (req, res) =>{
     try {
         const { todoId, userId } = req.params
 
@@ -196,7 +196,7 @@ exports.editTodo = async (req, res) =>{
     }
 }
 
-exports.deleteTodo = async (req, res) =>{
+const deleteTodo = async (req, res) =>{
 
     try {
         const todoId = req.params
@@ -239,7 +239,7 @@ exports.deleteTodo = async (req, res) =>{
     }
 }
 
-exports.searchTodo = async (req, res) =>{
+const searchTodo = async (req, res) =>{
     try {
         const search = req.query
 
@@ -275,3 +275,5 @@ exports.searchTodo = async (req, res) =>{
         })
     }
 }
+
+export default { createTodo, getTodos, getTodo, editTodo, deleteTodo, searchTodo}
