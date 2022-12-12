@@ -64,8 +64,6 @@ const register = async (req,res) => {
         user.password = undefined
         user.token = token
         
-
-
         res.status(201).json({
             success: true,
             user,
