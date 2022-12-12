@@ -1,9 +1,6 @@
 // const TodoModel = require("../model/Todo");
 import Todo from "../model/Todo"
 
-exports.home = (req,res)=>{
-    res.send("This is Home Page")
-};
 
 
 //CreateTodo Controller
