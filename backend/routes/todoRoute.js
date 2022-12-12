@@ -8,7 +8,7 @@ const {
     editTodo,
     deleteTodo,
     searchTodo
-} = require("../Controller/todoController");
+} = require("../Controller/todoController.js");
 const router = express.Router();
 
 router.get("/",home)

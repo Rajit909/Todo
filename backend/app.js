@@ -2,7 +2,6 @@ import dotenv from "dotenv"
 dotenv.config()
 import express from "express"
 import connectToDB from "./config/database.js"
-// const todoRoutes from "./routes/todoRoute")
 import router from "./routes/userRoute.js"
 import cookieParser from 'cookie-parser'
 import cors from "cors"
@@ -20,7 +19,6 @@ app.use(cookieParser())
 
 connectToDB();
 
-// app.use("/",todoRoutes)
 app.use("/",router)
 
 export default app;
