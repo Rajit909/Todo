@@ -12,7 +12,8 @@ const App = () => {
       <>
       <Navbar/>
       <Routes>
-        
+        <Route path='/' element={<AddTodo/>} />
+        <Route path='/mytodo' element={<TodoHero/>} />
       </Routes>
       </>
   )
