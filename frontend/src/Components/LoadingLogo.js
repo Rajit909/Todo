@@ -11,7 +11,7 @@ function LoadingLogo({loading}) {
         <HashLoader
         color={'#35bdd0'}
         loading={loading}
-        cssOverride={override}
+        cssOverride={ override }
         size={50}
         aria-label="Loading Spinner"
         data-testid="loader"
