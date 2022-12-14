@@ -96,7 +96,6 @@ function TodoHero() {
                     >
                       Edit Todo
                     </button>
-
                     {/* <button className="bg-[#35BDD0] rounded-md text-[12px] p-1 sm:w-[80px] lg:text-sm lg:w-[100px] md:pt-2 md:pb-2 md:text-[17px] md:w-[110px] ">
                   Edit Task
                 </button> */}
