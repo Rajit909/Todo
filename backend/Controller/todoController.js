@@ -132,6 +132,7 @@ const editTodo = async (req, res) =>{
             throw new Error("Todo ID is required to fetch the todo")
         }
 
+        
         if(typeof todoId !== "string"){
             throw new Error("Todo Id should of type string")
         }
