@@ -132,7 +132,7 @@ const editTodo = async (req, res) =>{
             throw new Error("Todo ID is required to fetch the todo")
         }
 
-        
+
         if(typeof todoId !== "string"){
             throw new Error("Todo Id should of type string")
         }
@@ -229,6 +229,7 @@ const deleteTodo = async (req, res) =>{
             message: "Todo deleted successfully",
             deleteTodo: todo
         })
+        
     } catch (error) {
         console.log("Error in delete todo controller")
         console.log("ERROR: ", error)
