@@ -7,8 +7,6 @@ import cookieParser from 'cookie-parser'
 import cors from "cors"
 const app = express()
 
-//custom middleware
-
 
 //Middleware
 app.use(cors())
