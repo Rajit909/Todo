@@ -134,6 +134,7 @@ const dashboard = async (req, res) =>{
             message: "Token not found"
         })
     }
+    
     try {
         let decode = jwt.verify(token, process.env.SECRET_CODE)
 
