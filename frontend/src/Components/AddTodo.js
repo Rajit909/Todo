@@ -8,6 +8,7 @@ function AddTodo() {
     const [title, setTitle] = useState("")
     const [task, setTask] = useState("")
 
+
 // sending data to database
     const handlePromise = async (promise) => {
         let data, error;
