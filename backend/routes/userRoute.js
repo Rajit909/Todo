@@ -26,7 +26,6 @@ router.post("/register", register)
 router.post("/login", login)
 router.get("/dashboard",auth,dashboard)
 
-
 // todo api routes
 router.get("/",home)
 router.post("/createTodo",createTodo)
