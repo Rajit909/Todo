@@ -7,6 +7,7 @@ function LoadingLogo({loading}) {
         margin: "40px auto"
     };
   return (
+    
     <div>
         <HashLoader
         color={'#35bdd0'}
