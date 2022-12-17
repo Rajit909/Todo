@@ -148,5 +148,4 @@ const dashboard = async (req, res) =>{
     }
 };
 
-
 export { home, register, login, dashboard} ;
