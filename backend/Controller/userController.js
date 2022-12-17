@@ -116,8 +116,6 @@ const login = async (req, res) => {
         }else{
             throw new Error("Invalid credential")
         }
-
-
     } catch (error) {
         res.status(400).json({
             success: false,
