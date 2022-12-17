@@ -21,4 +21,5 @@ function LoadingLogo({loading}) {
     )
 }
 
+
 export default LoadingLogo
